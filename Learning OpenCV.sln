@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Learning OpenCV", "Learning OpenCV\Learning OpenCV.vcxproj", "{6E410290-C376-4531-8506-4A4B5832171D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "First Video Program", "First Video Program\First Video Program.vcxproj", "{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input from a Camera", "Input from a Camera\Input from a Camera.vcxproj", "{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{6E410290-C376-4531-8506-4A4B5832171D}.Release|x64.Build.0 = Release|x64
 		{6E410290-C376-4531-8506-4A4B5832171D}.Release|x86.ActiveCfg = Release|Win32
 		{6E410290-C376-4531-8506-4A4B5832171D}.Release|x86.Build.0 = Release|Win32
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Debug|x64.ActiveCfg = Debug|x64
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Debug|x64.Build.0 = Debug|x64
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Debug|x86.ActiveCfg = Debug|Win32
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Debug|x86.Build.0 = Debug|Win32
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Release|x64.ActiveCfg = Release|x64
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Release|x64.Build.0 = Release|x64
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Release|x86.ActiveCfg = Release|Win32
+		{99740545-2A3B-4DAF-AE6E-39FAC1DDA0DF}.Release|x86.Build.0 = Release|Win32
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Debug|x64.ActiveCfg = Debug|x64
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Debug|x64.Build.0 = Debug|x64
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Debug|x86.ActiveCfg = Debug|Win32
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Debug|x86.Build.0 = Debug|Win32
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Release|x64.ActiveCfg = Release|x64
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Release|x64.Build.0 = Release|x64
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Release|x86.ActiveCfg = Release|Win32
+		{8500DF1C-FCFF-43EE-B1F4-C701BEE0DE6B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
