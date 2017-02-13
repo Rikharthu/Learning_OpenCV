@@ -17,7 +17,9 @@ const string WINDOW_NAME_ORIGINAL_OUTPUT = "camera_output";
 const string WINDOW_NAME_TRANSFORMED_OUTPUT = "transformed_camera_output";
 const string WINDOW_NAME_LOG_POLAR_OUTPUT = "log_polar";
 
+VideoCapture capture;
 bool paused = false;
+
 
 int main(int argc, char** argv) {
 	// prepare windows
@@ -25,12 +27,14 @@ int main(int argc, char** argv) {
 	namedWindow(WINDOW_NAME_TRANSFORMED_OUTPUT, cv::WINDOW_AUTOSIZE);
 	namedWindow(WINDOW_NAME_LOG_POLAR_OUTPUT, cv::WINDOW_AUTOSIZE);
 
-	VideoCapture capture;
+	
 	double fps;
 	if (argc == 1) {
 		// if passed an integer - opens a camera with that id
 		capture.open(CAMERA_ID);
 		// pass -1 to "just pick any"
+		// capture.get(CAP_PROP_FPS); doesnt work for cameras:
+		fps = getCameraFps();		
 	}
 	else {
 		capture.open(argv[1]);
@@ -99,4 +103,39 @@ void transformImage(const Mat & source, Mat & result) {
 	cvtColor(result, result, CV_BGR2GRAY);
 	// Canny edge detector (needs only a single-channel image
 	Canny(result, result, 10, 100, 3, true);
+}
+
+// Camera's FPS must be calculated experimentally
+int getCameraFps() {
+	// Calculate fps:
+	// Number of frames to capture
+	int num_frames = 120;
+
+	// Start and end times
+	time_t start, end;
+
+	// Variable for storing video frames
+	Mat frame;
+	cout << "Capturing " << num_frames << " frames" << endl;
+
+	// Start time
+	time(&start);
+
+	// Grab a few frames
+	for (int i = 0; i < num_frames; i++)
+	{
+		capture >> frame;
+	}
+
+	// End Time
+	time(&end);
+
+	// Time elapsed
+	double seconds = difftime(end, start);
+	cout << "Time taken : " << seconds << " seconds" << endl;
+	// Calculate frames per second
+	double fps = num_frames / seconds;
+	cout << "Estimated frames per second : " << fps << endl;
+
+	return fps;
 }
