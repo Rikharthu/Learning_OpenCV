@@ -12,7 +12,6 @@ void transformImage(const Mat&, Mat&);
 void readWritePixels(const Mat&, Mat&);
 
 
-const int DELAY_BETWEEN_FRAMES = 33;
 const std::string WINDOW_NAME = "VIDEO_WINDOW";
 const string WINDOW_TRANSFORMED = "VIDEO_WINDOW_TRANSFORMED";
 // also plays a role of label
@@ -40,16 +39,34 @@ int main(int argc, char** argv) {
 	namedWindow(WINDOW_NAME, cv::WINDOW_AUTOSIZE);
 	namedWindow(WINDOW_TRANSFORMED, cv::WINDOW_AUTOSIZE);
 
-	std::string videoFile = argv[1];
-
 	// VideoCapture is initialized to the beginning of the video
-	g_cap.open(videoFile);
+	if (argc > 1) {
+		// try to open passed videofile
+		string videoFile = argv[1];
+		printf("Opening %s", videoFile.c_str());
+		g_cap.open(videoFile);
+	}
+	else {
+		puts("No video file specified!");
+		getchar();
+		return -1;
+	}
+	// check if we succeeded
+	if (!g_cap.isOpened()) { 
+		std::cerr << "Couldn't open capture." << std::endl;
+		//return -1;
+	}	
 
 	// get number of frames in the video file
 	int frames = (int)g_cap.get(CAP_PROP_FRAME_COUNT);
 	// width and height
 	int tmpW = (int)g_cap.get(CAP_PROP_FRAME_WIDTH);
 	int tmpH = (int)g_cap.get(CAP_PROP_FRAME_HEIGHT);
+	// frames per second
+	double fps = g_cap.get(CAP_PROP_FPS);
+	// by knowing fps, calculate delay between each frame
+	double delay = 1 / fps * 1000;
+
 	// print video info
 	cout << "Video has " << frames << " frames of dimensions(" << tmpW << ", " << tmpH << ")." << endl;
 
@@ -73,18 +90,18 @@ int main(int argc, char** argv) {
 			imshow(WINDOW_NAME, frame);
 
 			// process image frame
-			//blurImage(frame, transformedFrame);
-			//transformImage(frame, transformedFrame);
+			//blurImage(frame, transformedFrame);			
 			readWritePixels(frame, transformedFrame);
+			transformImage(frame, transformedFrame);
 			// show transformed image frame
 			if (!transformedFrame.empty()) {
 				imshow(WINDOW_TRANSFORMED, transformedFrame);
 			}
 
 			g_run -= 1;
-
 		}
-		char c = (char)waitKey(DELAY_BETWEEN_FRAMES);
+
+		char c = (char)waitKey(delay);
 		if (c == 's') // single step
 		{
 			g_run = 1; cout << "Single step, run = " << g_run << endl;
@@ -97,6 +114,11 @@ int main(int argc, char** argv) {
 			break;
 	}
 
+	// release resources
+	g_cap.release();
+	// destroy the window and deallocate any associated memory usage
+	destroyWindow(WINDOW_NAME);
+	destroyWindow(WINDOW_TRANSFORMED);
 	return 0;
 }
 
@@ -136,7 +158,5 @@ void readWritePixels(const Mat & source, Mat & result) {
 	// grayscale image
 	cvtColor(source, result, CV_BGR2GRAY);
 	cout << "Gray pixel there is: " <<
-		(unsigned int)result.at<uchar>(y, x) << std::endl;
-
-	
+		(unsigned int)result.at<uchar>(y, x) << std::endl;	
 }
