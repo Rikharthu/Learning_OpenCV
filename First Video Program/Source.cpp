@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
 	// frames per second
 	double fps = g_cap.get(CAP_PROP_FPS);
 	// by knowing fps, calculate delay between each frame
-	double delay = 1 / fps * 1000;
+	double delay = 1000 / fps;
 
 	// print video info
 	cout << "Video has " << frames << " frames of dimensions(" << tmpW << ", " << tmpH << ")." << endl;

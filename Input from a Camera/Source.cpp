@@ -8,11 +8,11 @@
 using namespace cv;
 using namespace std;
 
+int getCameraFps();
 void transformImage(const Mat & source, Mat & result);
 
 // first camera has id of 0, if is the only one connected
 const int CAMERA_ID = 0;
-const int DELAY_BETWEEN_FRAMES = 33;
 const string WINDOW_NAME_ORIGINAL_OUTPUT = "camera_output";
 const string WINDOW_NAME_TRANSFORMED_OUTPUT = "transformed_camera_output";
 const string WINDOW_NAME_LOG_POLAR_OUTPUT = "log_polar";
@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
 		std::cerr << "Couldn't open capture." << std::endl;
 		//return -1;
 	}
+	int delay = 1000 / fps;
 
 	printf("fps=%d", fps);
 	Size size(
@@ -83,13 +84,14 @@ int main(int argc, char** argv) {
 			);
 			imshow(WINDOW_NAME_LOG_POLAR_OUTPUT, logpolarFrame);
 			// write out the log-polar image to a new video file
-			writer << logpolarFrame;
+			//writer << logpolarFrame;
+			writer << bgrFrame;
 
 			// transformations
-			transformImage(bgrFrame, transformedFrame);
-			imshow(WINDOW_NAME_TRANSFORMED_OUTPUT, transformedFrame);
+			//transformImage(bgrFrame, transformedFrame);
+			//imshow(WINDOW_NAME_TRANSFORMED_OUTPUT, transformedFrame);
 		}
-		char c = (char)waitKey(DELAY_BETWEEN_FRAMES);
+		char c = (char)waitKey(delay);
 		if (c == ESC_KEY) break;
 		else if (c == 'p') paused = !paused;
 	}
